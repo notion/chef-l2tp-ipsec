@@ -17,9 +17,7 @@
 # limitations under the License.
 #
 
-%w(lsof ppp xl2tpd openswan).each do |p|
-  package p
-end
+package %w(lsof ppp xl2tpd openswan)
 
 # Service definitions
 #
@@ -49,14 +47,12 @@ template '/etc/ipsec.conf' do
   owner 'root'
   group 'root'
   mode '0644'
-
   variables(
     virtual_private: node['l2tp-ipsec']['virtual_private'],
     ppp_link_network: node['l2tp-ipsec']['ppp_link_network'],
     public_ip: node['l2tp-ipsec']['public_ip'],
     private_ip: node['l2tp-ipsec']['private_ip']
   )
-
   notifies :restart, 'service[ipsec]'
 end
 
@@ -66,7 +62,6 @@ template '/etc/ipsec.secrets' do
   group 'root'
   mode '0600'
   sensitive true
-
   variables(
     public_ip: node['l2tp-ipsec']['public_ip'],
     preshared_key: node['l2tp-ipsec']['preshared_key']
@@ -80,7 +75,6 @@ template "#{node['l2tp-ipsec']['ppp_path']}/chap-secrets" do
   group 'root'
   mode '0600'
   sensitive true
-
   variables(
     users: node['l2tp-ipsec']['users']
   )
