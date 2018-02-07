@@ -50,7 +50,7 @@ template '/etc/ipsec.conf' do
   variables(
     config: node['l2tp-ipsec']['ipsec-conf']['config']
   )
-  notifies :restart, 'service[ipsec]'
+  notifies :restart, 'service[ipsec]', :delayed
 end
 
 template '/etc/ipsec.secrets' do
@@ -62,7 +62,7 @@ template '/etc/ipsec.secrets' do
   variables(
     config: node['l2tp-ipsec']['ipsec-secrets']['config']
   )
-  notifies :restart, 'service[ipsec]'
+  notifies :restart, 'service[ipsec]', :delayed
 end
 
 template "#{node['l2tp-ipsec']['ppp_path']}/chap-secrets" do
@@ -74,8 +74,8 @@ template "#{node['l2tp-ipsec']['ppp_path']}/chap-secrets" do
   variables(
     users: node['l2tp-ipsec']['users']
   )
-  notifies :restart, 'service[xl2tpd]'
-  notifies :restart, 'service[ipsec]'
+  notifies :restart, 'service[xl2tpd]', :delayed
+  notifies :restart, 'service[ipsec]', :delayed
 end
 
 template "#{node['l2tp-ipsec']['xl2tpd_path']}/xl2tpd.conf" do
@@ -83,7 +83,7 @@ template "#{node['l2tp-ipsec']['xl2tpd_path']}/xl2tpd.conf" do
   variables(
     config: node['l2tp-ipsec']['xl2tpd-conf']['config']
   )
-  notifies :restart, 'service[xl2tpd]'
+  notifies :restart, 'service[xl2tpd]', :delayed
 end
 
 template node['l2tp-ipsec']['pppoptfile'] do
@@ -91,5 +91,5 @@ template node['l2tp-ipsec']['pppoptfile'] do
   variables(
     config: node['l2tp-ipsec']['options-xl2tpd']['config']
   )
-  notifies :restart, 'service[xl2tpd]'
+  notifies :restart, 'service[xl2tpd]', :delayed
 end
