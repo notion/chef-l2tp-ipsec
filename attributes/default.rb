@@ -113,18 +113,17 @@ default['l2tp-ipsec']['xl2tpd-conf']['config'] = {
   'lns default' => {
     'ip range' => '10.55.55.5-10.55.55.100',
     'local ip' => '10.55.55.4',
-    # 'refuse chap' => 'yes',
-    # 'refuse pap' => 'yes',
+    'refuse chap' => 'yes',
+    'refuse pap' => 'yes',
     'require authentication' => 'yes',
     'ppp debug' => 'yes',
     'pppoptfile' => node['l2tp-ipsec']['pppoptfile'],
     'length bit' => 'yes',
-    'unix authentication' => 'yes',
   }
 }
 
 default['l2tp-ipsec']['options-xl2tpd']['config'] = {
-  # 'require-mschap-v2' => '',
+  'require-mschap-v2' => '',
   'ms-dns' => ['8.8.8.8', '8.8.4.4'],
   'asyncmap' => '0',
   'auth' => '',
@@ -137,5 +136,4 @@ default['l2tp-ipsec']['options-xl2tpd']['config'] = {
   'proxyarp' => '',
   'lcp-echo-interval' => '30',
   'lcp-echo-failure' => '4',
-  'login' => '',
 }
