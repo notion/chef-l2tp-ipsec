@@ -48,10 +48,7 @@ template '/etc/ipsec.conf' do
   group 'root'
   mode '0644'
   variables(
-    virtual_private: node['l2tp-ipsec']['virtual_private'],
-    ppp_link_network: node['l2tp-ipsec']['ppp_link_network'],
-    public_ip: node['l2tp-ipsec']['public_ip'],
-    private_ip: node['l2tp-ipsec']['private_ip']
+    config: node['l2tp-ipsec']['ipsec-conf']['config']
   )
   notifies :restart, 'service[ipsec]'
 end
@@ -63,8 +60,7 @@ template '/etc/ipsec.secrets' do
   mode '0600'
   sensitive true
   variables(
-    public_ip: node['l2tp-ipsec']['public_ip'],
-    preshared_key: node['l2tp-ipsec']['preshared_key']
+    config: node['l2tp-ipsec']['ipsec-secrets']['config']
   )
   notifies :restart, 'service[ipsec]'
 end
@@ -85,9 +81,7 @@ end
 template "#{node['l2tp-ipsec']['xl2tpd_path']}/xl2tpd.conf" do
   source 'xl2tpd.conf.erb'
   variables(
-    virtual_ip_range: node['l2tp-ipsec']['virtual_ip_range'],
-    virtual_interface_ip: node['l2tp-ipsec']['virtual_interface_ip'],
-    pppoptfile: node['l2tp-ipsec']['pppoptfile']
+    config: node['l2tp-ipsec']['xl2tpd-conf']['config']
   )
   notifies :restart, 'service[xl2tpd]'
 end
@@ -95,7 +89,7 @@ end
 template node['l2tp-ipsec']['pppoptfile'] do
   source 'options.xl2tpd.erb'
   variables(
-    dns_servers: node['l2tp-ipsec']['dns_servers']
+    config: node['l2tp-ipsec']['options-xl2tpd']['config']
   )
   notifies :restart, 'service[xl2tpd]'
 end
