@@ -30,6 +30,7 @@ service 'xl2tpd' do
 end
 
 service 'ipsec' do
+  service_name 'strongswan' if node['l2tp-ipsec']['ipsec-package'] =~ /^strongswan/
   supports status: true,
            restart: true,
            reload: true,
