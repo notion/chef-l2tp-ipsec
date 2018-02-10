@@ -61,7 +61,8 @@ template '/etc/ipsec.secrets' do
   mode '0600'
   sensitive true
   variables(
-    config: node['l2tp-ipsec']['ipsec-secrets']['config']
+    config: node['l2tp-ipsec']['ipsec-secrets']['config'],
+    package: node['l2tp-ipsec']['ipsec-package']
   )
   notifies :restart, 'service[ipsec]', :delayed
 end
