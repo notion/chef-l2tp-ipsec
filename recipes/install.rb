@@ -17,7 +17,8 @@
 # limitations under the License.
 #
 
-package %w(lsof ppp xl2tpd openswan)
+package %w(lsof ppp xl2tpd)
+package node['l2tp-ipsec']['ipsec-package']
 
 # Service definitions
 #

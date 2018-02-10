@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+default['l2tp-ipsec']['ipsec-package'] = 'openswan'
+
 default['l2tp-ipsec']['public_interface'] = 'eth0'
 default['l2tp-ipsec']['private_interface'] = 'eth0'
 
